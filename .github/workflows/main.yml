@@ -23,6 +23,21 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions Bot"
 
+      # Generate Doxygen Configuration File
+      - name: Generate Doxygen Configuration
+        run: |
+          doxygen -g
+          sed -i 's/PROJECT_NAME.*/PROJECT_NAME = "Example C Project"/' Doxyfile
+          sed -i 's|INPUT.*|INPUT = ./main.c|' Doxyfile
+          sed -i 's/GENERATE_HTML.*/GENERATE_HTML = YES/' Doxyfile
+          sed -i 's/GENERATE_LATEX.*/GENERATE_LATEX = YES/' Doxyfile
+          sed -i 's/HAVE_DOT.*/HAVE_DOT = YES/' Doxyfile
+      # Install Graphviz and Generate Documentation
+      - name: Install Graphviz and Generate Documentation
+        run: |
+          sudo apt-get install graphviz -y
+          doxygen Doxyfile
+
       # Create gh-pages Branch (if not exists)
       - name: Ensure gh-pages Branch
         run: |
