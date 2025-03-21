@@ -26,6 +26,7 @@ jobs:
       # Generate Doxygen Configuration File
       - name: Generate Doxygen Configuration
         run: |
+          sudo apt-get update && sudo apt-get install doxygen
           doxygen -g
           sed -i 's/PROJECT_NAME.*/PROJECT_NAME = "Example C Project"/' Doxyfile
           sed -i 's|INPUT.*|INPUT = ./main.c|' Doxyfile
