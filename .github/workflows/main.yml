@@ -13,17 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Step 2: Set Git Config
+      # Set Git Config
       - name: Set Git Configuration
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions Bot"
 
-      # Step 3: Create gh-pages Branch (if not exists)
+      # Create gh-pages Branch (if not exists)
       - name: Ensure gh-pages Branch
         run: |
           if [ "$(git branch --list gh-pages)" == "" ]; then
@@ -32,18 +32,8 @@ jobs:
             git commit --allow-empty -m "Initial gh-pages commit"
             git push origin gh-pages
           fi
-      #
-      # Step 4: Install Doxygen
-      - name: Install Doxygen
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen graphviz
 
-      # Step 5: Generate the Documentation
-      - name: Generate Documentation
-        run: doxygen Doxyfile
-
-      # Step 6: Deploy to GitHub Pages
+      #  Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
