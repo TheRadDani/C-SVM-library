@@ -32,7 +32,7 @@ jobs:
             git commit --allow-empty -m "Initial gh-pages commit"
             git push origin gh-pages
           fi
-
+      #
       # Step 4: Install Doxygen
       - name: Install Doxygen
         run: |
